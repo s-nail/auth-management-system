@@ -9,12 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>auth-cloud-controller</module>
         <module>auth-cloud-api</module>
-        <module>auth-cloud-impl</module>
-        <module>auth-cloud-mapper</module>
         <module>auth-cloud-common</module>
-        <module>auth-cloud-resources</module>
+        <module>auth-cloud-server</module>
+        <module>auth-cloud-client</module>
     </modules>
 
     <properties>
