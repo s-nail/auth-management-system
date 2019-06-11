@@ -20,4 +20,9 @@ public class UserController {
     public List<User> getUser(int pageNo,int pageSize) {
         return userService.getUser(pageNo,pageSize);
     }
+
+    @GetMapping(value = "save")
+    public void save() {
+        userService.insert(new User());
+    }
 }

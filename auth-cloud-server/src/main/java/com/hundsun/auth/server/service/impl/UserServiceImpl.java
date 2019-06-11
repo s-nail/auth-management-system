@@ -7,6 +7,7 @@ import com.hundsun.auth.server.dao.UserDao;
 import com.hundsun.auth.service.UserService;
 import com.hundsun.jrescloud.rpc.annotation.CloudComponent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,5 +26,21 @@ public class UserServiceImpl implements UserService {
         PageInfo<User> page = new PageInfo<User>(list);
         System.out.println("list============"+page.getList());
         return list;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public int insert(User user) {
+        user.setId(3);
+        user.setUsername("Hi");
+        user.setPassword("1222");
+        userDao.insertUser(user);
+
+        //模拟主键冲突
+        User user1 =new User();
+        user1.setId(1);
+        user1.setUsername("Hi");
+        user1.setPassword("1222");
+        userDao.insertUser(user1);
+        return 0;
     }
 }

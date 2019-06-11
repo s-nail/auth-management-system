@@ -15,4 +15,6 @@ public interface UserService {
 
     @CloudFunction
     List<User> getUser(int pageNo,int pageSize);
+
+    int insert(User user);
 }

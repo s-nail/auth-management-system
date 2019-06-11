@@ -9,4 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserDao extends tk.mybatis.mapper.common.Mapper<User> {
 
+    int insertUser(User user);
+
 }
