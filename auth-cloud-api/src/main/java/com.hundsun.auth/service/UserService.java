@@ -13,8 +13,9 @@ import java.util.List;
 @CloudService
 public interface UserService {
 
-    @CloudFunction
-    List<User> getUser(int pageNo,int pageSize);
-
+    //@CloudFunction("111500")
     int insert(User user);
+
+    //@CloudFunction("111501")
+    List<User> getUser(int pageNo,int pageSize);
 }

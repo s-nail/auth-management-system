@@ -14,23 +14,19 @@
     <dependencies>
         <dependency>
             <groupId>com.hundsun.license</groupId>
-            <artifactId>auth-cloud-api</artifactId>
+            <artifactId>auth-cloud-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.hundsun.jrescloud</groupId>
-            <artifactId>jrescloud-starter-mybatis</artifactId>
+            <groupId>com.hundsun.license</groupId>
+            <artifactId>auth-cloud-api</artifactId>
+            <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
             <version>${tk.mybatis.version}</version>
-        </dependency>
-        <!-- pagehelper -->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>${pagehelper.version}</version>
         </dependency>
     </dependencies>
 </project>
