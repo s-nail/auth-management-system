@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getUser(int userId) {
         List<User> list = userDao.listUser();
+        System.out.println("list============"+list);
         return list;
     }
 }
