@@ -17,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "getUser")
-    public List<User> getUser(int userId) {
-        return userService.getUser(userId);
+    public List<User> getUser(int pageNo,int pageSize) {
+        return userService.getUser(pageNo,pageSize);
     }
 }

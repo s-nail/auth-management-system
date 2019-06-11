@@ -13,6 +13,6 @@ import java.util.List;
 @CloudService
 public interface UserService {
 
-    //@CloudFunction
-    List<User> getUser(int userId);
+    @CloudFunction
+    List<User> getUser(int pageNo,int pageSize);
 }
