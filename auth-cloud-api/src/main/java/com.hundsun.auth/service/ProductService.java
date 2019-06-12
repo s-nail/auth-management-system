@@ -1,6 +1,7 @@
 package com.hundsun.auth.service;
 
 import com.hundsun.auth.dto.Product;
+import com.hundsun.auth.entity.TSysProduct;
 import com.hundsun.jrescloud.rpc.annotation.CloudService;
 
 /**
@@ -9,5 +10,5 @@ import com.hundsun.jrescloud.rpc.annotation.CloudService;
 @CloudService
 public interface ProductService {
 
-    Product getById(int id);
+    TSysProduct getById(String id);
 }
