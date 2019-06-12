@@ -23,10 +23,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>${tk.mybatis.version}</version>
-        </dependency>
+
     </dependencies>
 </project>

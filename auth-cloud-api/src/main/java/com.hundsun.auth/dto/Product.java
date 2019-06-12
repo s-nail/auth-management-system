@@ -4,6 +4,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import lombok.*;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.List;
 
 /**
@@ -15,7 +18,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @XStreamAlias("product")
+@Table(name = "tsys_product")
 public class Product {
+
+    @Id
+    @Column(name = "product_id")
+    private Integer productId;
+
     @XStreamAlias("licence_no")
     private String licenceNo;
     @XStreamAlias("licence_type")
@@ -34,6 +43,6 @@ public class Product {
     private List<ExtendField> extendFieldSet;
     @XStreamAsAttribute
     private List<Module> modules;
-    @XStreamAlias("old_model")
-    private byte[] oldModel;
+    /*@XStreamAlias("old_model")
+    private byte[] oldModel;*/
 }
