@@ -35,8 +35,8 @@ public class TSysProduct {
 
     private String creator;
 
-    private Long createDate;
+    private String createDate;
 
-    private Long modifyDate;
+    private String modifyDate;
 
 }

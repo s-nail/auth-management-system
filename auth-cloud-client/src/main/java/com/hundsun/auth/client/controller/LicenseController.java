@@ -5,7 +5,6 @@ import com.hundsun.auth.dto.Product;
 import com.hundsun.auth.service.LicenseService;
 import com.hundsun.jrescloud.rpc.annotation.CloudReference;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**

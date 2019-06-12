@@ -14,8 +14,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ResultDto<T> implements Serializable {
     /**
-     * 0:failed（默认）
-     * 1:success（默认）
+     * ACK:成功（默认）
+     * NACK:失败（默认）
      */
     private String code;
     private String message;

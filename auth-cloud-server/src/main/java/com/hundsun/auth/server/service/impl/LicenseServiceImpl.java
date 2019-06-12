@@ -1,23 +1,30 @@
 package com.hundsun.auth.server.service.impl;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
 import com.hundsun.auth.base.dto.ResultDto;
+import com.hundsun.auth.base.dto.ResultDtoFactory;
+import com.hundsun.auth.dto.Api;
 import com.hundsun.auth.dto.Module;
 import com.hundsun.auth.dto.Product;
+import com.hundsun.auth.entity.TSysApi;
 import com.hundsun.auth.entity.TSysProduct;
+import com.hundsun.auth.entity.TSysProductModule;
 import com.hundsun.auth.server.dao.ApiDao;
 import com.hundsun.auth.server.dao.ModuleDao;
 import com.hundsun.auth.server.dao.ProductDao;
 import com.hundsun.auth.service.LicenseService;
+import com.hundsun.auth.util.HSBlowfish;
+import com.hundsun.auth.util.HttpClientUpgradesUtil;
 import com.hundsun.auth.util.XStreamUtil;
 import com.hundsun.jrescloud.rpc.annotation.CloudComponent;
-import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.http.NameValuePair;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -32,6 +39,7 @@ public class LicenseServiceImpl implements LicenseService {
     @Autowired
     private ApiDao apiDao;
 
+    @Transactional(rollbackFor = Exception.class)
     public ResultDto save(Product product) {
         //测试使用
         product.setLicenceNo("1111");
@@ -39,40 +47,59 @@ public class LicenseServiceImpl implements LicenseService {
         product.setBeginDate("20190611");
         product.setExpireDate("20210611");
         List<Module> list = new ArrayList<Module>();
-        Module module = new Module();
-        module.setModuleName("用户管理");
-        module.setModuleNo("000");
-        module.setBeginDate("20190611");
-        module.setBeginDate("20210611");
-        list.add(module);
+        Module module1 = new Module();
+        module1.setModuleName("用户管理");
+        module1.setModuleNo("000");
+        module1.setBeginDate("20190611");
+        module1.setBeginDate("20210611");
+        list.add(module1);
         product.setModules(list);
 
+        //1.保存到本地数据库中
         TSysProduct tSysProduct = new TSysProduct();
-        List<Module> list1 = new ArrayList<Module>();
-        List<Module> list2 = new LinkedList<Module>();
         BeanUtils.copyProperties(product, tSysProduct);
-        BeanUtils.copyProperties(product.getModules(), list1);
-        BeanUtils.copyProperties(product.getModules(), list2);
+        tSysProduct.setProductId(IdUtil.simpleUUID());
+        tSysProduct.setCreateDate(DateUtil.now());
+        tSysProduct.setCreator("admin4Test");
+        productDao.insertSelective(tSysProduct);
+        if (CollectionUtils.isNotEmpty(product.getModules())) {
+            for (Module module : product.getModules()) {
+                TSysProductModule tSysProductModule = new TSysProductModule();
+                BeanUtils.copyProperties(module, tSysProductModule);
+                tSysProductModule.setModuleId(IdUtil.simpleUUID());
+                tSysProductModule.setProductId(tSysProduct.getProductId());
+                moduleDao.insertSelective(tSysProductModule);
+                if (CollectionUtils.isNotEmpty(module.getApiSet())) {
+                    for (Api api : module.getApiSet()){
+                        TSysApi tSysApi =new TSysApi();
+                        BeanUtils.copyProperties(api, tSysApi);
+                        tSysApi.setApiId(IdUtil.simpleUUID());
+                        tSysApi.setModuleId(tSysProductModule.getModuleId());
+                        apiDao.insertSelective(tSysApi);
+                    }
 
-        String path = this.getClass().getResource("/license/license.lic").getPath();
+                }
+            }
 
-        /*String contentStr = FileUtil.readUtf8String(path);
-        //xml转对象
-        Class[] types = {Product.class, Api.class, ExtendField.class, Module.class};
-        Product product = XStreamUtil.xmlToBean(contentStr, types);*/
-
+        }
+        //2.解析product对象，生成xml，再加密发送到许可中心
         //product对象转xml
         String initStr = XStreamUtil.beanToXml(product);
-        // 覆盖式写入源文件
-        //FileUtil.writeString(initStr, path, "UTF-8");
-        String base64Str = Base64.encodeBase64String(FileUtil.readBytes(path));
-        String base64 = Base64.encodeBase64String(initStr.getBytes());
-        System.out.println(base64Str);
-        System.out.println(base64);
-
-        if (StrUtil.equals(base64Str, base64)) {
-            System.out.println("=========================");
+        byte[] encode = null;
+        try {
+            encode = HSBlowfish.encodeWithBase64(initStr.getBytes("UTF-8"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultDtoFactory.toNack("HSBlowfish加密失败");
         }
-        return null;
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        try {
+            HttpClientUpgradesUtil.executePOST("url", params);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultDtoFactory.toNack("HttpClient发送失败");
+        }
+        return ResultDtoFactory.toAck("上传成功");
     }
+
 }
