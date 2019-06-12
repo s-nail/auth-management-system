@@ -1,7 +1,6 @@
 package com.hundsun.auth.server.service.impl;
 
-import com.hundsun.auth.dto.Api;
-import com.hundsun.auth.server.dao.AipDao;
+import com.hundsun.auth.server.dao.ApiDao;
 import com.hundsun.auth.service.ApiService;
 import com.hundsun.jrescloud.rpc.annotation.CloudComponent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ApiServiceImpl implements ApiService {
 
     @Autowired
-    private AipDao aipDao;
+    private ApiDao aipDao;
 
 }

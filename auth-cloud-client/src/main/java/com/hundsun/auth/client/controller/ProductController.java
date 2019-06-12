@@ -1,6 +1,5 @@
 package com.hundsun.auth.client.controller;
 
-import com.hundsun.auth.dto.Product;
 import com.hundsun.auth.entity.TSysProduct;
 import com.hundsun.auth.service.ProductService;
 import com.hundsun.jrescloud.rpc.annotation.CloudReference;

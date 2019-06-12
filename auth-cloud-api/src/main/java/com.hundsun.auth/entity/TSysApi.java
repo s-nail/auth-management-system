@@ -14,10 +14,12 @@ import javax.persistence.Table;
 @Table(name = "tsys_api")
 public class TSysApi {
     @Id
-    @Column(name = "function_id")
-    private String functionId;
+    @Column(name = "api_id")
+    private String apiId;
 
     private String moduleId;
+
+    private String functionId;
 
     private String apiName;
 

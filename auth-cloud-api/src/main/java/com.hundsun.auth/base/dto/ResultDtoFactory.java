@@ -4,13 +4,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.validation.BindingResult;
 
 /**
- * Class Name: ResultDtoFactory
- * 
- * @author YuqiangJia
- * @version Ver 1.0
- * @since Ver 1.0
- * @Date 2016-12-29
- * 
+ * @author jiayq24996
  */
 public class ResultDtoFactory {
 
@@ -38,7 +32,7 @@ public class ResultDtoFactory {
 
     /**
      * Description: 在controller层直接返回错误消息，避免在controller中用该方法catch异常做处理
-     * 
+     *
      * @param msg
      * @return
      */
@@ -48,7 +42,7 @@ public class ResultDtoFactory {
 
     /**
      * Description: 在controller层直接返回错误消息，避免在controller中用该方法catch异常做处理
-     * 
+     *
      * @param msg
      * @param data
      * @return
