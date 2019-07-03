@@ -55,6 +55,7 @@ public class LicenseServiceImpl implements LicenseService {
         list.add(module1);
         product.setModules(list);
 
+        //TODO 判空处理???
         //1.保存到本地数据库中
         TSysProduct tSysProduct = new TSysProduct();
         BeanUtils.copyProperties(product, tSysProduct);
