@@ -22,6 +22,11 @@
             <artifactId>auth-cloud-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.hundsun.jres.permit</groupId>
+            <artifactId>permit-center-api</artifactId>
+            <version>${permit-center.version}</version>
+        </dependency>
 
 
     </dependencies>

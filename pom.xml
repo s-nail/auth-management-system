@@ -25,6 +25,7 @@
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <tk.mybatis.version>2.1.5</tk.mybatis.version>
         <pagehelper.version>1.2.10</pagehelper.version>
+        <permit-center.version>0.0.1-SNAPSHOT</permit-center.version>
     </properties>
 
     <dependencies>
