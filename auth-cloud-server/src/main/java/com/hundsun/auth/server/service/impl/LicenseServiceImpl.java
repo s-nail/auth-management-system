@@ -47,7 +47,7 @@ public class LicenseServiceImpl implements LicenseService {
     public ResultDto save(Product product) {
 
         //测试使用
-        product.setLicenceNo("12868");
+        /*product.setLicenceNo("12868");
         product.setLicenceType("1");
         product.setBeginDate("20190601");
         product.setExpireDate("20210701");
@@ -73,7 +73,7 @@ public class LicenseServiceImpl implements LicenseService {
         api1.setExpireDate("20190701");
         api1.setFlowControl("15");
         apiList.add(api1);
-        module1.setApiSet(apiList);
+        module1.setApiSet(apiList);*/
 
         //TODO 判空处理???
         //1.保存到本地数据库中
@@ -98,7 +98,6 @@ public class LicenseServiceImpl implements LicenseService {
                         tSysApi.setModuleId(tSysProductModule.getModuleId());
                         apiDao.insertSelective(tSysApi);
                     }
-
                 }
             }
 

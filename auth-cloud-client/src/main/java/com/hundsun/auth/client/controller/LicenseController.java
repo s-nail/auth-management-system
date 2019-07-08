@@ -5,6 +5,7 @@ import com.hundsun.auth.dto.Product;
 import com.hundsun.auth.service.LicenseService;
 import com.hundsun.jrescloud.rpc.annotation.CloudReference;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * Created by jiayq24996 on 2019-06-12
  */
-@RestController(value = "license")
+@RestController
+@RequestMapping(value = "/license")
 public class LicenseController {
 
     @CloudReference
@@ -23,8 +25,11 @@ public class LicenseController {
      * @param product
      * @return
      */
-    @GetMapping(value = "/license/save")
+    @GetMapping(value = "/save")
     public ResultDto save(Product product){
+        /*ResultDto resultDto = new ResultDto();
+        resultDto.setData(product);
+        return resultDto;*/
         return licenseService.save(product);
     }
 
